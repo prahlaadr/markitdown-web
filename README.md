@@ -2,6 +2,10 @@
 
 A sleek web application to convert any file format to Markdown instantly. Built with FastAPI and deployed on Vercel.
 
+🌐 **Live Demo**: [https://markitdown-web.vercel.app](https://markitdown-bskirbcz9-prahlaads-projects.vercel.app)
+
+📦 **GitHub**: [https://github.com/prahlaadr/markitdown-web](https://github.com/prahlaadr/markitdown-web)
+
 ## Features
 
 - **Universal File Conversion**: Support for PDF, DOCX, XLSX, PPTX, images, audio, HTML, CSV, JSON, XML, ZIP, and more
@@ -13,11 +17,14 @@ A sleek web application to convert any file format to Markdown instantly. Built 
 
 ## Supported Formats
 
-- **Documents**: PDF, Word (DOCX), PowerPoint (PPTX), Excel (XLSX, XLS), EPUB
-- **Media**: Images (with EXIF and OCR), Audio (with transcription)
-- **Web**: HTML, RSS, Wikipedia URLs, YouTube URLs
+Currently deployed with core document support:
+
+- **Documents**: PDF, Word (DOCX), Excel (XLSX)
+- **Web**: HTML
 - **Data**: CSV, JSON, XML
-- **Archives**: ZIP files (processes all contents)
+- **Text**: Plain text, Markdown
+
+The MarkItDown library supports additional formats (PowerPoint, Images with OCR, Audio transcription, YouTube URLs, EPub, ZIP archives) which can be enabled by adding the appropriate dependencies.
 
 ## Local Development
 
@@ -86,9 +93,18 @@ The app will be live at your Vercel URL.
 
 ## Limitations
 
-- Maximum file size: 10MB (Vercel free tier limit)
-- Processing timeout: 60 seconds
-- Some advanced features (Azure Document Intelligence, LLM image captions) are not enabled by default
+- Maximum file size: 4.5MB (Vercel free tier body size limit)
+- Maximum deployment size: 250MB unzipped (optimized to stay within limit)
+- Processing timeout: 10 seconds (Vercel free tier)
+- Some advanced features require additional dependencies:
+  - PowerPoint (PPTX) support
+  - Image OCR capabilities
+  - Audio transcription
+  - YouTube URL processing
+  - Azure Document Intelligence integration
+  - LLM-powered image captions
+
+To enable additional formats, add the corresponding dependencies to `requirements.txt` and ensure the total package size remains under 250MB.
 
 ## License
 
