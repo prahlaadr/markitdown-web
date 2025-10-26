@@ -1,3 +1,9 @@
+/**
+ * MarkItDown Web - Client-side JavaScript
+ * Author: Prahlad R (https://github.com/prahlaadr)
+ * Handles file upload, conversion, and display logic
+ */
+
 const dropzone = document.getElementById('dropzone');
 const fileInput = document.getElementById('fileInput');
 const loading = document.getElementById('loading');

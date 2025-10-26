@@ -106,10 +106,14 @@ The app will be live at your Vercel URL.
 
 To enable additional formats, add the corresponding dependencies to `requirements.txt` and ensure the total package size remains under 250MB.
 
-## License
+## Author
 
-MIT
+Built by [Prahlad R](https://github.com/prahlaadr)
 
 ## Credits
 
-Powered by [Microsoft MarkItDown](https://github.com/microsoft/markitdown)
+Conversion engine powered by [Microsoft MarkItDown](https://github.com/microsoft/markitdown) - developed by Microsoft's AutoGen Team
+
+## License
+
+MIT
