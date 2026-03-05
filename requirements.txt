@@ -1,9 +1,8 @@
-fastapi==0.104.1
-python-multipart==0.0.6
-uvicorn==0.24.0
-jinja2==3.1.2
-markitdown==0.1.0
+fastapi==0.115.0
+python-multipart==0.0.12
+jinja2==3.1.4
+markitdown==0.1.5
 pdfminer.six
 mammoth
-pandas
 openpyxl
+lxml

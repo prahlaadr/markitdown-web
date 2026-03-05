@@ -6,15 +6,13 @@ License: MIT
 """
 
 from fastapi import FastAPI, File, UploadFile, HTTPException
-from fastapi.responses import HTMLResponse, JSONResponse, FileResponse
+from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from starlette.requests import Request
 from markitdown import MarkItDown
-import os
 from pathlib import Path
 from io import BytesIO
-import tempfile
 
 app = FastAPI(
     title="MarkItDown Web",
@@ -43,22 +41,22 @@ async def convert_file(file: UploadFile = File(...)):
     content = await file.read()
     size = len(content)
 
-    # Check file size (10MB limit for free tier, adjust as needed)
-    MAX_SIZE = 10 * 1024 * 1024  # 10MB
+    # Vercel free tier body limit is 4.5MB
+    MAX_SIZE = 4_500_000
     if size > MAX_SIZE:
         raise HTTPException(
             status_code=413,
-            detail=f"File too large (max {MAX_SIZE // 1024 // 1024}MB)"
+            detail="File too large (max 4.5MB)"
         )
 
     if size == 0:
         raise HTTPException(status_code=400, detail="Empty file")
 
     try:
-        # Get file extension
+        # Get file extension (markitdown expects dot prefix e.g. ".pdf")
         file_extension = ""
         if '.' in file.filename:
-            file_extension = file.filename.split('.')[-1].lower()
+            file_extension = "." + file.filename.rsplit('.', 1)[-1].lower()
 
         # Convert to markdown using MarkItDown
         file_stream = BytesIO(content)

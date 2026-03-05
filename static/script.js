@@ -51,10 +51,10 @@ fileInput.addEventListener('change', (e) => {
 });
 
 async function handleFile(file) {
-    // Validate file size (10MB limit)
-    const maxSize = 10 * 1024 * 1024;
+    // Validate file size (4.5MB Vercel body limit)
+    const maxSize = 4_500_000;
     if (file.size > maxSize) {
-        alert(`File too large! Maximum size is ${maxSize / 1024 / 1024}MB.`);
+        alert('File too large! Maximum size is 4.5MB.');
         return;
     }
 
