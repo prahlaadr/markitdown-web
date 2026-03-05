@@ -1,6 +1,6 @@
 """
 MarkItDown Web - FastAPI application for file-to-markdown conversion
-Author: Prahlad R (https://github.com/prahlaadr)
+Author: Prahlaad R (https://github.com/prahlaadr)
 Powered by: Microsoft MarkItDown (https://github.com/microsoft/markitdown)
 License: MIT
 """

@@ -108,7 +108,7 @@ To enable additional formats, add the corresponding dependencies to `requirement
 
 ## Author
 
-Built by [Prahlad R](https://github.com/prahlaadr)
+Built by [Prahlaad R](https://github.com/prahlaadr)
 
 ## Credits
 

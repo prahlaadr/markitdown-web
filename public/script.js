@@ -1,6 +1,6 @@
 /**
  * MarkItDown Web - Client-side JavaScript
- * Author: Prahlad R (https://github.com/prahlaadr)
+ * Author: Prahlaad R (https://github.com/prahlaadr)
  * Handles file upload, conversion, and display logic
  */
 
