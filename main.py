@@ -5,9 +5,25 @@ Powered by: Microsoft MarkItDown (https://github.com/microsoft/markitdown)
 License: MIT
 """
 
+import sys
+import types
+
+# Stub out magika (and its heavy onnxruntime dep) before markitdown imports it.
+# We pass file_extension explicitly so magika's AI file-type detection is unnecessary.
+_magika_stub = types.ModuleType("magika")
+
+class _MagikaResult:
+    status = "error"
+
+class _MagikaStub:
+    def identify_stream(self, *a, **kw):
+        return _MagikaResult()
+
+_magika_stub.Magika = _MagikaStub
+sys.modules["magika"] = _magika_stub
+
 from fastapi import FastAPI, File, UploadFile, HTTPException
 from fastapi.responses import HTMLResponse, JSONResponse
-from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from starlette.requests import Request
 from markitdown import MarkItDown
@@ -20,9 +36,8 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Setup paths
-BASE_DIR = Path(__file__).resolve().parent.parent
-app.mount("/static", StaticFiles(directory=str(BASE_DIR / "static")), name="static")
+# Setup paths — templates are relative to this file
+BASE_DIR = Path(__file__).resolve().parent
 templates = Jinja2Templates(directory=str(BASE_DIR / "templates"))
 
 # Initialize MarkItDown converter
@@ -37,7 +52,6 @@ async def home(request: Request):
 async def convert_file(file: UploadFile = File(...)):
     """Convert uploaded file to Markdown"""
 
-    # Read file content
     content = await file.read()
     size = len(content)
 
@@ -53,12 +67,11 @@ async def convert_file(file: UploadFile = File(...)):
         raise HTTPException(status_code=400, detail="Empty file")
 
     try:
-        # Get file extension (markitdown expects dot prefix e.g. ".pdf")
+        # Get file extension (markitdown 0.1.5 expects dot prefix e.g. ".pdf")
         file_extension = ""
         if '.' in file.filename:
             file_extension = "." + file.filename.rsplit('.', 1)[-1].lower()
 
-        # Convert to markdown using MarkItDown
         file_stream = BytesIO(content)
 
         result = md_converter.convert_stream(
@@ -89,6 +102,3 @@ async def health_check():
         "service": "markitdown-web",
         "version": "1.0.0"
     }
-
-# Required for Vercel
-handler = app
